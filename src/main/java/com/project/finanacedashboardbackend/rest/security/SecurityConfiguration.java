@@ -1,5 +1,6 @@
 package com.project.finanacedashboardbackend.rest.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,7 +33,7 @@ public class SecurityConfiguration {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/authenticate", "/signup").permitAll()
+                        .requestMatchers("/authenticate", "/v1/SignUp").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

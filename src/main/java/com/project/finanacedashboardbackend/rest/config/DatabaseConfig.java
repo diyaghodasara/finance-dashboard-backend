@@ -23,8 +23,14 @@ public class DatabaseConfig {
         dataSource.setPassword(dataSourceProperties.getPassword());
         return dataSource;
     }
-    @Bean(name="firstRestEndpoint")
-    public SimpleJdbcCall simpleJdbcCall(DataSource dataSource) {
+
+    @Bean(name = "getUserDetails")
+    public SimpleJdbcCall getUserDetailsCall(DataSource dataSource) {
+        return new SimpleJdbcCall(dataSource);
+    }
+
+    @Bean(name = "registerUser")
+    public SimpleJdbcCall registerUserCall(DataSource dataSource) {
         return new SimpleJdbcCall(dataSource);
     }
 }
