@@ -33,4 +33,9 @@ public class DatabaseConfig {
     public SimpleJdbcCall registerUserCall(DataSource dataSource) {
         return new SimpleJdbcCall(dataSource);
     }
+
+    @Bean(name = "LoginUser")
+    public SimpleJdbcCall loginUserCall(DataSource dataSource) {
+        return new SimpleJdbcCall(dataSource);
+    }
 }

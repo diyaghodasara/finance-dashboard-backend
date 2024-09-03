@@ -53,10 +53,12 @@ public class SignUpRepositoryImpl implements SignUpRespository {
 
             // Check for error message
             String errorMsg = (String) result.get("p_ErrorMsg");
-            if (errorMsg != null && !errorMsg.isEmpty()) {
+            if (errorMsg != null || !errorMsg.isEmpty()) {
                 if ("Email already exists.".equals(errorMsg)) {
                     throw new EmailAlreadyExistsException(errorMsg);
                 } else if ("An error occurred during registration.".equals(errorMsg)) {
+                    throw new DatabaseException(errorMsg);
+                } else if("Database failure occurred.".equals(errorMsg)) {
                     throw new DatabaseException(errorMsg);
                 }
 
