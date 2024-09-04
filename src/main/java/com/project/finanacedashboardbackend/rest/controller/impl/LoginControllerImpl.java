@@ -10,9 +10,11 @@ import com.project.finanacedashboardbackend.rest.dto.LoginResponse;
 import com.project.finanacedashboardbackend.rest.service.LoginService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class LoginControllerImpl implements LoginController {
     private final LoginService loginService;
