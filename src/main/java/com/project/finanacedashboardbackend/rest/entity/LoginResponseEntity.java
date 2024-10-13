@@ -9,6 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 public class LoginResponseEntity {
     private String token;
-    private String firstName;
+    private String name;
     private Integer userId;
 }

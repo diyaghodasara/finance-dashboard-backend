@@ -8,8 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SignUpRequestEntity {
-    private String firstName;
-    private String lastName;
+    private String name;
     private String email;
     private String password;
 }

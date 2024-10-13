@@ -29,7 +29,7 @@ public class DatabaseConfig {
         return new SimpleJdbcCall(dataSource);
     }
 
-    @Bean(name = "registerUser")
+    @Bean(name = "SignUpUser")
     public SimpleJdbcCall registerUserCall(DataSource dataSource) {
         return new SimpleJdbcCall(dataSource);
     }

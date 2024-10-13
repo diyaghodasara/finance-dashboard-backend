@@ -1,70 +1,64 @@
 package com.project.finanacedashboardbackend.rest.repository.impl;
 
-import com.project.finanacedashboardbackend.rest.config.Exception.DatabaseException;
 import com.project.finanacedashboardbackend.rest.config.Exception.EmailNotFoundException;
 import com.project.finanacedashboardbackend.rest.config.Exception.IncorrectPasswordException;
+import com.project.finanacedashboardbackend.rest.entity.CustomUserDetails;
 import com.project.finanacedashboardbackend.rest.entity.LoginRequestEntity;
 import com.project.finanacedashboardbackend.rest.entity.LoginResponseEntity;
 import com.project.finanacedashboardbackend.rest.repository.LoginRepository;
 import com.project.finanacedashboardbackend.rest.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.SqlOutParameter;
-import org.springframework.jdbc.core.SqlParameter;
-import org.springframework.jdbc.core.simple.SimpleJdbcCall;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
-
-import java.sql.Types;
-import java.util.HashMap;
-import java.util.Map;
 
 @Repository
 public class LoginRepositoryImpl implements LoginRepository {
-    private final SimpleJdbcCall simpleJdbcCall;
+
+    private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
+
     @Autowired
-    public LoginRepositoryImpl(@Qualifier("LoginUser") SimpleJdbcCall simpleJdbcCall, JwtUtil jwtUtil) {
-        this.simpleJdbcCall = simpleJdbcCall;
+    public LoginRepositoryImpl(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
+        this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
     }
+
     @Override
     public LoginResponseEntity login(LoginRequestEntity loginRequestEntity) {
         try {
-            simpleJdbcCall.withSchemaName("FinanceDashboard").withProcedureName("LoginUser")
-                    .declareParameters(
-                            new SqlParameter("p_Email", Types.VARCHAR),
-                            new SqlParameter("p_Password", Types.VARCHAR),
-                            new SqlOutParameter("o_UserID", Types.INTEGER),
-                            new SqlOutParameter("o_FirstName", Types.VARCHAR),
-                            new SqlOutParameter("o_ErrorMsg", Types.VARCHAR)
-                    );
-            Map<String,Object> params = new HashMap<>();
-            params.put("p_Email", loginRequestEntity.getEmail());
-            params.put("p_Password", loginRequestEntity.getPassword());
-            Map<String, Object> result = simpleJdbcCall.execute(params);
-            LoginResponseEntity loginResponseEntity = new LoginResponseEntity();
-            String ErrorMsg = (String) result.get("o_ErrorMsg");
-            if(ErrorMsg != null || !ErrorMsg.isEmpty()) {
-                if(ErrorMsg.equals("Email not found.")){
-                    throw new EmailNotFoundException(ErrorMsg);
-                } else if(ErrorMsg.equals("Password mismatch.")){
-                    throw new IncorrectPasswordException(ErrorMsg);
-                }
-            }
-            //Generate token
+            // Authenticate using Spring Security
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginRequestEntity.getEmail(),
+                            loginRequestEntity.getPassword()
+                    )
+            );
+
+            // Generate JWT if authentication is successful
             String token = jwtUtil.generateToken(loginRequestEntity.getEmail());
+
+            // Extract user details from the authentication object
+            String email = authentication.getName();
+            Integer userId = ((CustomUserDetails) authentication.getPrincipal()).getUserId();
+            String firstName = ((CustomUserDetails) authentication.getPrincipal()).getFirstName();
+
+            // Create and return the response entity
+            LoginResponseEntity loginResponseEntity = new LoginResponseEntity();
             loginResponseEntity.setToken(token);
-            loginResponseEntity.setUserId((Integer)  result.get("o_UserID"));
-            loginResponseEntity.setFirstName((String) result.get("o_FirstName"));
+            loginResponseEntity.setUserId(userId);
+            loginResponseEntity.setName(firstName);
             return loginResponseEntity;
-        } catch (EmailNotFoundException e){
-            throw new EmailNotFoundException(e.getMessage());
-        } catch (IncorrectPasswordException e){
-            throw new IncorrectPasswordException(e.getMessage());
-        } catch (DatabaseException e){
-            throw new DatabaseException(e.getMessage());
-        } catch (Exception e){
-            throw new RuntimeException(e.getMessage());
+
+        } catch (UsernameNotFoundException e) {
+            throw new EmailNotFoundException("Email not found.");
+        } catch (BadCredentialsException e) {
+            throw new IncorrectPasswordException("Password mismatch.");
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred during login: " + e.getMessage());
         }
     }
 }
