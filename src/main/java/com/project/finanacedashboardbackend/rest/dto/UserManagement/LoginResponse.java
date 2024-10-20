@@ -3,8 +3,6 @@ package com.project.finanacedashboardbackend.rest.dto.UserManagement;
 import lombok.*;
 
 @Data
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoginResponse {

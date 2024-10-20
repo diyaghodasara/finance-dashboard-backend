@@ -1,4 +1,4 @@
-package com.project.finanacedashboardbackend.rest.config;
+package com.project.finanacedashboardbackend.rest.config.Database;
 
 import com.project.finanacedashboardbackend.rest.constants.DataSourceProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,20 +22,5 @@ public class DatabaseConfig {
         dataSource.setUsername(dataSourceProperties.getUsername());
         dataSource.setPassword(dataSourceProperties.getPassword());
         return dataSource;
-    }
-
-    @Bean(name = "getUserDetails")
-    public SimpleJdbcCall getUserDetailsCall(DataSource dataSource) {
-        return new SimpleJdbcCall(dataSource);
-    }
-
-    @Bean(name = "SignUpUser")
-    public SimpleJdbcCall registerUserCall(DataSource dataSource) {
-        return new SimpleJdbcCall(dataSource);
-    }
-
-    @Bean(name = "LoginUser")
-    public SimpleJdbcCall loginUserCall(DataSource dataSource) {
-        return new SimpleJdbcCall(dataSource);
     }
 }

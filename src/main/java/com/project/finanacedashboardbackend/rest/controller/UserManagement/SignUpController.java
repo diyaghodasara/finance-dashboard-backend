@@ -5,8 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.Valid;
+
 
 public interface SignUpController {
     @PostMapping("/v1/SignUp")
-    ResponseEntity<?> addUser(@RequestBody SignUpRequest signUpRequest);
+    ResponseEntity<?> addUser(@Valid @RequestBody SignUpRequest signUpRequest);
 }

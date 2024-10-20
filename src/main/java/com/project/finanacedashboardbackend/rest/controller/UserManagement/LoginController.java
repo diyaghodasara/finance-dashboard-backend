@@ -5,7 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.Valid;
+
 public interface LoginController {
     @PostMapping("/v1/Login")
-    ResponseEntity<?> login(@RequestBody LoginRequest loginRequest);
+    ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest);
 }

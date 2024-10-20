@@ -11,3 +11,4 @@ public class LoginRequestEntity {
     private String email;
     private String password;
 }
+

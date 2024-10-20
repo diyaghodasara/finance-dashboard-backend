@@ -21,7 +21,7 @@ public class LoginControllerImpl implements LoginController {
         this.loginService = loginService;
     }
     @Override
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> login(LoginRequest loginRequest) {
         try{
             LoginResponse loginResponse = loginService.login(loginRequest);
             return ResponseEntity.ok(loginResponse);

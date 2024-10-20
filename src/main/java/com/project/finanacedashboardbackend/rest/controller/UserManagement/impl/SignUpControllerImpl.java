@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class SignUpControllerImpl implements SignUpController {
@@ -26,12 +28,11 @@ public class SignUpControllerImpl implements SignUpController {
     }
 
     @Override
-    public ResponseEntity<?> addUser(@RequestBody SignUpRequest signUpRequest) {
+    public ResponseEntity<?> addUser(SignUpRequest signUpRequest) {
+
         try {
-            //add a new user
             LoginResponse loginResponse = signUpService.addUser(signUpRequest);
             return ResponseEntity.ok(loginResponse);
-
         } catch (EmailAlreadyExistsException e) {
             // email already exists
             ErrorResponse errorResponse = new ErrorResponse(e.getMessage());

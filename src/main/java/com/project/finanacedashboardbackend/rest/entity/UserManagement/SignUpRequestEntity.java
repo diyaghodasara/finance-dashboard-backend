@@ -10,5 +10,5 @@ import lombok.*;
 public class SignUpRequestEntity {
     private String name;
     private String email;
-    private String password;
+    private String hashedPassword;
 }

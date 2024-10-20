@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
+
 import java.sql.Types;
 import java.util.Map;
 
@@ -21,23 +22,19 @@ public class SignUpRepositoryImpl implements SignUpRespository {
 
     private final SimpleJdbcCall simpleJdbcCall;
     private final JwtUtil jwtUtil;
-    private final PasswordEncoder passwordEncoder;
+
 
     @Autowired
     public SignUpRepositoryImpl(
             @Qualifier("SignUpUser") SimpleJdbcCall simpleJdbcCall,
-            JwtUtil jwtUtil,
-            PasswordEncoder passwordEncoder) {
+            JwtUtil jwtUtil) {
         this.simpleJdbcCall = simpleJdbcCall;
         this.jwtUtil = jwtUtil;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public LoginResponseEntity addUser(SignUpRequestEntity signUpRequestEntity) {
         try {
-            // Hash the password before passing it to the stored procedure
-            String hashedPassword = passwordEncoder.encode(signUpRequestEntity.getPassword());
 
             // Prepare the parameters
             simpleJdbcCall.withProcedureName("SignUpUser").withSchemaName("FinanceDashboard")
@@ -51,7 +48,7 @@ public class SignUpRepositoryImpl implements SignUpRespository {
 
             Map<String, Object> params = Map.of(
                     "in_email", signUpRequestEntity.getEmail(),
-                    "in_password_hash", hashedPassword,
+                    "in_password_hash", signUpRequestEntity.getHashedPassword(),
                     "in_name", signUpRequestEntity.getName()
             );
 

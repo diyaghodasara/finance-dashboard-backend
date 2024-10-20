@@ -42,7 +42,7 @@ public class LoginRepositoryImpl implements LoginRepository {
             String token = jwtUtil.generateToken(loginRequestEntity.getEmail());
 
             // Extract user details from the authentication object
-            String email = authentication.getName();
+
             Integer userId = ((CustomUserDetails) authentication.getPrincipal()).getUserId();
             String firstName = ((CustomUserDetails) authentication.getPrincipal()).getFirstName();
 

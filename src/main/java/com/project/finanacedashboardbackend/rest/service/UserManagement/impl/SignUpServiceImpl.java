@@ -11,6 +11,7 @@ import com.project.finanacedashboardbackend.rest.mapper.entityToDto.UserManageme
 import com.project.finanacedashboardbackend.rest.repository.UserManagment.SignUpRespository;
 import com.project.finanacedashboardbackend.rest.service.UserManagement.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,16 +19,21 @@ public class SignUpServiceImpl implements SignUpService {
     private final SignUpRespository signUpRespository;
     private final SignUpRequestMapper signUpRequestMapper;
     private final LoginResponseMapper loginResponseMapper;
+    private final PasswordEncoder passwordEncoder;
     @Autowired
-    public SignUpServiceImpl(SignUpRespository signUpRespository,SignUpRequestMapper signUpRequestMapper,LoginResponseMapper loginResponseMapper) {
+    public SignUpServiceImpl(SignUpRespository signUpRespository,SignUpRequestMapper signUpRequestMapper,LoginResponseMapper loginResponseMapper,
+                             PasswordEncoder passwordEncoder) {
         this.signUpRespository = signUpRespository;
         this.signUpRequestMapper = signUpRequestMapper;
         this.loginResponseMapper = loginResponseMapper;
+        this.passwordEncoder = passwordEncoder;
     }
     @Override
     public LoginResponse addUser(SignUpRequest signUpRequest) {
         try{
             SignUpRequestEntity signUpRequestEntity = signUpRequestMapper.toEntity(signUpRequest);
+            String hashedPassword = passwordEncoder.encode(signUpRequest.getPassword());
+            signUpRequestEntity.setHashedPassword(hashedPassword);
             LoginResponseEntity loginResponseEntity = signUpRespository.addUser(signUpRequestEntity);
             return loginResponseMapper.toDto(loginResponseEntity);
         } catch (EmailAlreadyExistsException e) {
