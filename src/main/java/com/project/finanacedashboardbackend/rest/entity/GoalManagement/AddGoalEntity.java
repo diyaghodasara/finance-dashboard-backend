@@ -10,12 +10,9 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class UpdateGoalEntity {
-    @NotNull(message = "goal-id cannot be null")
-    @Min(value = 1,message = "goal-id should be greater than 0")
-    private Integer goalId;
+@NoArgsConstructor
+public class AddGoalEntity {
 
     @NotNull(message = "user-id cannot be null")
     @Min(value = 1,message = "user-id should be greater than 0")
@@ -28,7 +25,7 @@ public class UpdateGoalEntity {
     @DecimalMin(value = "0.01", message = "target amount should be should be greater than 0.0")
     private BigDecimal goalTargetAmount;
 
-    @NotNull(message = "current progress cannot be null")
+    @NotNull(message = "current amount cannot be null")
     private BigDecimal goalCurrentAmount;
 
     @NotNull(message = "start-date cannot be null")
@@ -38,10 +35,6 @@ public class UpdateGoalEntity {
     @NotNull(message = "end-date cannot be null")
     @ValidDate(message = "Invalid end date format. Expected format: yyyy-MM-dd")
     private Date goalEndDate;
-
-    @NotBlank(message = "status cannot be null or blank")
-    @Pattern(regexp = "active|achieved|failed", message = "goalStatus must be 'active', 'achieved', or 'failed'")
-    private String goalStatus;
 
     @NotNull(message = "goal priority cannot be null")
     @Size(min = 1,max =10,message = "goal priority should be greater than 0")
