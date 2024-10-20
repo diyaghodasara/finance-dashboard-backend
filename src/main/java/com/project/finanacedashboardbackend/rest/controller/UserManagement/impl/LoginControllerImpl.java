@@ -1,13 +1,12 @@
-package com.project.finanacedashboardbackend.rest.controller.impl;
+package com.project.finanacedashboardbackend.rest.controller.UserManagement.impl;
 
-import com.project.finanacedashboardbackend.rest.config.Exception.DatabaseException;
 import com.project.finanacedashboardbackend.rest.config.Exception.EmailNotFoundException;
 import com.project.finanacedashboardbackend.rest.config.Exception.IncorrectPasswordException;
-import com.project.finanacedashboardbackend.rest.controller.LoginController;
+import com.project.finanacedashboardbackend.rest.controller.UserManagement.LoginController;
 import com.project.finanacedashboardbackend.rest.dto.ErrorResponse;
-import com.project.finanacedashboardbackend.rest.dto.LoginRequest;
-import com.project.finanacedashboardbackend.rest.dto.LoginResponse;
-import com.project.finanacedashboardbackend.rest.service.LoginService;
+import com.project.finanacedashboardbackend.rest.dto.UserManagement.LoginRequest;
+import com.project.finanacedashboardbackend.rest.dto.UserManagement.LoginResponse;
+import com.project.finanacedashboardbackend.rest.service.UserManagement.LoginService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

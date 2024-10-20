@@ -1,4 +1,4 @@
-package com.project.finanacedashboardbackend.rest.dto;
+package com.project.finanacedashboardbackend.rest.dto.UserManagement;
 
 import lombok.*;
 

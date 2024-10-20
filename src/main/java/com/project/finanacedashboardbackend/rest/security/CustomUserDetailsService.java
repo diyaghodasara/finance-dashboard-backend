@@ -1,6 +1,5 @@
 package com.project.finanacedashboardbackend.rest.security;
 
-import com.project.finanacedashboardbackend.rest.entity.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.SqlOutParameter;
@@ -27,9 +26,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         // Configure the stored procedure with the relevant parameters
-        jdbcCall.withProcedureName("LoginUser")
+        jdbcCall.withProcedureName("LoginUser").withSchemaName("FinanceDashboard")
                 .declareParameters(
-                        new SqlParameter("email", Types.VARCHAR),
+                        new SqlParameter("in_email", Types.VARCHAR),
                         new SqlOutParameter("out_name", Types.VARCHAR),
                         new SqlOutParameter("out_user_id", Types.INTEGER),
                         new SqlOutParameter("out_hashed_password", Types.VARCHAR),
@@ -37,7 +36,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 );
 
         // Execute the stored procedure with the provided email
-        Map<String, Object> result = jdbcCall.execute(Map.of("email", email));
+        Map<String, Object> result = jdbcCall.execute(Map.of("in_email", email));
 
         // Handle the response
         String outMessage = (String) result.get("out_message");

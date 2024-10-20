@@ -1,6 +1,6 @@
-package com.project.finanacedashboardbackend.rest.controller;
+package com.project.finanacedashboardbackend.rest.controller.UserManagement;
 
-import com.project.finanacedashboardbackend.rest.dto.LoginRequest;
+import com.project.finanacedashboardbackend.rest.dto.UserManagement.LoginRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

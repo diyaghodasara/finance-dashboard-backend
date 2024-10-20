@@ -1,12 +1,12 @@
-package com.project.finanacedashboardbackend.rest.controller.impl;
+package com.project.finanacedashboardbackend.rest.controller.UserManagement.impl;
 
 import com.project.finanacedashboardbackend.rest.config.Exception.DatabaseException;
 import com.project.finanacedashboardbackend.rest.config.Exception.EmailAlreadyExistsException;
-import com.project.finanacedashboardbackend.rest.controller.SignUpController;
+import com.project.finanacedashboardbackend.rest.controller.UserManagement.SignUpController;
 import com.project.finanacedashboardbackend.rest.dto.ErrorResponse;
-import com.project.finanacedashboardbackend.rest.dto.LoginResponse;
-import com.project.finanacedashboardbackend.rest.dto.SignUpRequest;
-import com.project.finanacedashboardbackend.rest.service.SignUpService;
+import com.project.finanacedashboardbackend.rest.dto.UserManagement.LoginResponse;
+import com.project.finanacedashboardbackend.rest.dto.UserManagement.SignUpRequest;
+import com.project.finanacedashboardbackend.rest.service.UserManagement.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

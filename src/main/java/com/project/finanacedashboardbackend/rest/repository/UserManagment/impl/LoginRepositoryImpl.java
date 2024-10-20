@@ -1,11 +1,11 @@
-package com.project.finanacedashboardbackend.rest.repository.impl;
+package com.project.finanacedashboardbackend.rest.repository.UserManagment.impl;
 
 import com.project.finanacedashboardbackend.rest.config.Exception.EmailNotFoundException;
 import com.project.finanacedashboardbackend.rest.config.Exception.IncorrectPasswordException;
-import com.project.finanacedashboardbackend.rest.entity.CustomUserDetails;
-import com.project.finanacedashboardbackend.rest.entity.LoginRequestEntity;
-import com.project.finanacedashboardbackend.rest.entity.LoginResponseEntity;
-import com.project.finanacedashboardbackend.rest.repository.LoginRepository;
+import com.project.finanacedashboardbackend.rest.security.CustomUserDetails;
+import com.project.finanacedashboardbackend.rest.entity.UserManagement.LoginRequestEntity;
+import com.project.finanacedashboardbackend.rest.entity.UserManagement.LoginResponseEntity;
+import com.project.finanacedashboardbackend.rest.repository.UserManagment.LoginRepository;
 import com.project.finanacedashboardbackend.rest.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

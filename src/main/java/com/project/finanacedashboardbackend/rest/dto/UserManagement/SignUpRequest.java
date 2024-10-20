@@ -1,4 +1,4 @@
-package com.project.finanacedashboardbackend.rest.entity;
+package com.project.finanacedashboardbackend.rest.dto.UserManagement;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignUpRequestEntity {
+public class SignUpRequest {
     private String name;
     private String email;
     private String password;

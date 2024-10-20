@@ -1,15 +1,15 @@
-package com.project.finanacedashboardbackend.rest.service.impl;
+package com.project.finanacedashboardbackend.rest.service.UserManagement.impl;
 
 import com.project.finanacedashboardbackend.rest.config.Exception.DatabaseException;
 import com.project.finanacedashboardbackend.rest.config.Exception.EmailAlreadyExistsException;
-import com.project.finanacedashboardbackend.rest.dto.LoginResponse;
-import com.project.finanacedashboardbackend.rest.dto.SignUpRequest;
-import com.project.finanacedashboardbackend.rest.entity.LoginResponseEntity;
-import com.project.finanacedashboardbackend.rest.entity.SignUpRequestEntity;
-import com.project.finanacedashboardbackend.rest.mapper.entityToDto.LoginResponseMapper;
-import com.project.finanacedashboardbackend.rest.mapper.entityToDto.SignUpRequestMapper;
-import com.project.finanacedashboardbackend.rest.repository.SignUpRespository;
-import com.project.finanacedashboardbackend.rest.service.SignUpService;
+import com.project.finanacedashboardbackend.rest.dto.UserManagement.LoginResponse;
+import com.project.finanacedashboardbackend.rest.dto.UserManagement.SignUpRequest;
+import com.project.finanacedashboardbackend.rest.entity.UserManagement.LoginResponseEntity;
+import com.project.finanacedashboardbackend.rest.entity.UserManagement.SignUpRequestEntity;
+import com.project.finanacedashboardbackend.rest.mapper.entityToDto.UserManagement.LoginResponseMapper;
+import com.project.finanacedashboardbackend.rest.mapper.entityToDto.UserManagement.SignUpRequestMapper;
+import com.project.finanacedashboardbackend.rest.repository.UserManagment.SignUpRespository;
+import com.project.finanacedashboardbackend.rest.service.UserManagement.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
